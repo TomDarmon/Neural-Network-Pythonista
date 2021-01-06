@@ -1,0 +1,14 @@
+settings = dict()
+settings['pop_size'] = 50 # number of agents to spawn
+settings['pop_size 2'] = 10
+settings['food_quant'] = 40
+settings['color'] = 'green'
+settings['x_min'] = 0  # left side of the arena
+settings['x_max'] = 1100  # right side of the arena
+settings['y_min'] = 0  # lower bound of the arena
+settings['y_max'] = 850  # upper bound of the arena
+settings['traps_quant'] = 0
+settings['bad_agents_quant'] = 0
+settings['food_creators_quant'] = 0
+settings['mutation_rate'] = 0.1
+settings['number_of_test'] = 5
