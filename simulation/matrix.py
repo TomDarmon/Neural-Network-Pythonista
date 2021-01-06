@@ -1,6 +1,5 @@
 
 from random import randrange, random
-
 class Matrix:
 	
 	def __init__(self, matrix = []):

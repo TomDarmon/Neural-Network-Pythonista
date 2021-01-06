@@ -1,20 +1,35 @@
 from Class import *
 from NeuralNetwork import *
+from random import choice
+from copy import deepcopy
+from settings import *
 
-def agent_in_screen(agents, old_agents):
+def agent_in_screen(agents):
 	for agent in agents:
-		if not ( -30 < agent.x < 1150): 
-			old_agents.append(agent)
-			agents.pop(agents.index(agent))
-		if not (-30 < agent.y < 850):
-			old_agents.append(agent)
-			agents.pop(agents.index(agent))
-	return agents, old_agents
+		
+		if agent.x > 1120:
+			agent.x = - 2 * agent.size
+			
+		if agent.x < - 2 * agent.size:
+			agent.x = 1120
+			
+		if agent.y > 850:
+			agent.y = - 2 * agent.size
+			
+		if agent.y < - 2 * agent.size:
+			agent.y = 850
+			
+	return agents
 
 def fitness(settings, agents):
 	for agent in agents:
 		agent.fitness = agent.food_eaten / settings['food_quant']
 	return agents
+	
+def refresh_fitness(agents):
+	for agent in agents:
+		agent.fitness = 0
+	return agents 
 		
 def normalize(x, max, min):
 	normalized = (x - min) / (max - min)
@@ -35,7 +50,9 @@ def think_next_movement(agent, foods):
 	normalized_y_dist = normalize(dist_to_border_y, 834, 0)
 	normalized_distance_of_food = normalize(dist_closest_food, 1112, 0)
 	
-	prediction = agent.brain.predict(np.array([[normalized_distance_of_food], [normalized_x_dist], [normalized_y_dist]])) #Take as an input the dist between the agent and the closest food
+	#prediction = agent.brain.predict(np.array([[normalized_distance_of_food], [normalized_x_dist], [normalized_y_dist]])) #Take as an input the dist between the agent and the closest food
+	
+	prediction = agent.brain.predict(np.array([[normalized_distance_of_food]]))
 	
 	prediction_max = max(prediction)
 	for i in range(len(prediction)):
@@ -81,6 +98,13 @@ def generate_agents(settings, pop_size):
 			agents.append(agent(settings))
 		return agents
 		
+def generate_agents2(n):
+	agents = []
+	settings = 0
+	for i in range(n):
+		agents.append(agent(settings))
+	return agents
+		
 
 
 def generate_foods(settings):
@@ -103,7 +127,7 @@ def generate_food_creators(settings):
 		food_creators.append(food_creator(settings))
 	return food_creators
 	
-def simulate(settings, agents, foods, old_agents, show):
+def simulate(settings, agents, foods, show):
 
 	agents = fitness(settings, agents)
 	
@@ -117,11 +141,11 @@ def simulate(settings, agents, foods, old_agents, show):
 				
 		foods = [food for food in foods if not agent.collision(food)]  #we delete every food if it has been eaten
 											
-	agents, old_agents = agent_in_screen(agents, old_agents) #Suppress the agents out of the screen and put them in old_agents
+	agents = agent_in_screen(agents) #make the agent go from one side of the screen to the other
 	
 	if show == True:														
 		display(agents, foods)
-	return agents, old_agents, foods
+	return agents, foods
 	
 	
 ####### FUNCTION TO SIMULATE SILENTLY #######
@@ -163,42 +187,92 @@ def do_n_simulations(settings, best_agents, n):
 	best_agents = find_best_agents(total_agents, best_agents)
 	return best_agents
 	
-def find_best_agents(total_agents):
-	best_agents = total_agents[:10]
+def find_best_agents(total_agents, n):
+	best_agents = total_agents[:n]
 	for agent in total_agents: #we compare all the agent simulated
 		for best_agent in best_agents: #with the best 10 agents
-			if agent.weighted_fitness > best_agent.weighted_fitness:
+			if agent.fitness > best_agent.fitness:
 				agent_to_add = agent
 				agent_to_delete = best_agent
 				best_agents.append(agent_to_add)
-				best_agents.remove(agent_to_delete)
+				del best_agents[best_agents.index(agent_to_delete)]
 				
 				break # we break the loop to add this agent only 1 time
 	return best_agents
 	
 	
-def reset_agents(agents, old_agents = []):
-	agents = old_agents + agents
+def reset_agents(agents):
 	for agent in agents:
 		agent.refresh()
 	return agents
 	
 		
 def mutate_next_generation(best_agents):
-	for agent in best_agents:
+	agents = deepcopy(best_agents)
+	
+	for agent in agents:
 		agent.brain.mutate()
-	return best_agents
+	return agents
+	
+def regenerate_agents(best_agents, n):
+	agent_generated = []
+	agents = deepcopy(best_agents)
+	i = 0
+	while len(agent_generated) < n:
+		if i > 1000: #If the while is taking too long (all fitness are 0)
+			agent_generated = generate_agents2(n)
+			break
+		for agent in agents:
+			if agent.fitness > random():
+				agent_generated.append(agent)
+		i += 1
+	return agent_generated
+	
 	
 def next_generation(agents):
 	best_agents = do_n_simulations(settings)
 	return best_agents
 	
 	
-def color_in_red(agents, n):
-	i = 0
+def color_in_red(agents):
 	for agent in agents:
 		agent.color = (255, 0, 0)
-		if i > n:
-			break
 	return agents
-		
+	
+def choose_brain(agents):
+	agent = choice(agents)
+	return agent.brain
+	
+def replace_brain(agent, brain):
+	agent.brain = brain
+	
+def change_brain(agents_to_replace, best_agents):
+		for agent in agents_to_replace:
+			brain = choose_brain(best_agents)
+			replace_brain(agent, brain)
+			
+			
+def cross_brains(agent1, agent2):
+	child = cross_over(agent1.brain, agent2.brain)
+	return child
+	
+	
+def cross_over_next_generation_brain(agents):
+	childs = []
+	
+	for i in range(len(agents) // 2):
+		r = np.random.random()
+		if r > 0.3:
+			childs.append(cross_brains(agents[i], agents[i + 1]))
+		else:
+			childs.append(agents[i].brain)
+	return childs
+	
+	
+def generate_agents_with_brain(number_of_agents, brain_list):
+	agents= [agent(settings) for i in range(number_of_agents)]
+	i = 0
+	for agen in agents:
+		agen.brain = brain_list[i]
+		i += 1
+	return agents

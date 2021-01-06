@@ -1,6 +1,7 @@
 import numpy as np
 from random import random, randrange
 from math import e
+from NeuralNetwork import *
 
 sigmoid = lambda x: 1/(1+pow(e,-x))
 
@@ -46,6 +47,7 @@ def mutate(array_to_mutate, p):
 		for j in range(col):
 			if random() < p:
 				#different type of mutations can happen
+				
 				kind_of_mutation_index = randrange(1,4)
 				
 				
@@ -59,4 +61,8 @@ def mutate(array_to_mutate, p):
 					array[i][j] *= -1
 					
 	return array
+
+
+
+
 

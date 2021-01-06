@@ -1,6 +1,7 @@
 from Functions import *
 from NeuralNetwork import *
 from scene import *
+from random import random
 
 ############ AGENT CLASS ###########
 
@@ -9,18 +10,20 @@ class agent:
 	
 	def __init__(self, settings):
 		
-		self.brain = Neural_Network(3, 10, 4)
+		self.brain = Neural_Network(1, 4, 4) 
 
 		self.size = 15
-		self.speed = 2
+		self.speed = randrange(4, 6) + 4 * random()
 		self.color = (0, 255, 0)
 		
 		self.fitness = 0 #fitness = number of food eaten / number of food to eat 
-		self.weighted_fitness = 0
 		self.food_eaten = 0
 		
-		self.x = np.random.uniform(settings['x_min'], settings['x_max'])
-		self.y = np.random.uniform(settings['y_min'], settings['y_max'])
+		self.x = 0
+		self.y = 0
+		
+		#self.x = np.random.uniform(settings['x_min'], settings['x_max'])
+		#self.y = np.random.uniform(settings['y_min'], settings['y_max'])
 		
 		self.x_ini = self.x
 		self.y_ini = self.y
@@ -51,7 +54,7 @@ class agent:
 
 
 	def collision(self, object):
-		if np.abs(dist(self, object)) < object.size:
+		if np.abs(dist(self, object)) < self.size:
 			return True
 		else:
 			return False
@@ -60,13 +63,13 @@ class agent:
 		self.size += 5
 		
 	def refresh(self):
-		self.x = self.x_ini
-		self.y = self.y_ini
+		
 		self.size = self.size_ini
 		self.color = (0, 255, 0)
-	#def mutate(self, probability_to_mutate):
-		#mutate(self.brain, probability_to_mutate)
 		
+		self.x = self.x_ini
+		self.y = self.y_ini
+	
 		
 		
 		############ Bad_aggent CLASS herits from agent ###########

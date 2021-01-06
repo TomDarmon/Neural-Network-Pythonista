@@ -6,9 +6,32 @@ import numpy as np
 import time
 
 
+def cross_over(nn1, nn2):
+		child = Neural_Network(nn1.inputs_number, nn1.hidden_number, nn1.outputs_number)
+		param_1 = [nn1.weights_IH, nn1.weights_HO, nn1.bias_H, nn1.bias_O]
+		param_2 = [nn2.weights_IH, nn2.weights_HO, nn2.bias_H, nn2.bias_O]
+		child_param = []
+		
+		for i in range(4):
+			what_param = randrange(1, 3)
+			if what_param == 1:
+				child_param.append(param_1[i])
+			elif what_param == 2:
+				child_param.append(param_2[i])
+				
+				
+		child.weights_IH = child_param[0]
+		child.weights_HO = child_param[1]
+		child.bias_H = child_param[2]
+		child.bias_O = child_param[3]
+		
+		return child
+		
+
 class Neural_Network:
 	
 	def __init__(self, inputs, hidden, outputs):
+		
 		self.inputs_number = inputs
 		self.hidden_number = hidden
 		self.outputs_number = outputs
@@ -23,7 +46,7 @@ class Neural_Network:
 		
 		
 		self.learning_rate = 0.1
-		self.mutation_prob = 0.5
+		self.mutation_prob = 0.3
 		
 	def settings(self):
 		print("Weights_IH : ")
@@ -55,6 +78,9 @@ class Neural_Network:
 		outputs = vectorize_sigmoid(outputs)
 		
 		return outputs
+		
+			
+		
 		
 		
 	def mutate(self):
