@@ -5,6 +5,8 @@ This is a simulation wrote from scratch (only using a drawing library from Pytho
 
 This code was written as learning project in end of highschool / 1 st year of undergraduate school. Some of the implementations are terribly slow, some of them are not using python tools properly, please forgive me for that. 
 
+[![IMG-1002.png](https://i.postimg.cc/Kcr5rhTT/IMG-1002.png)](https://postimg.cc/rzsWMbQy)
+
 <b>matrix</b> : This is a toy library for linear algebra, it's written in Python (really slow). It has only functions to be able to make a neuralnetwork with backpropagation such as multiplication, addition, substraction, dot product, hadamard product and transposition. In addition the library has additional functions used to implement a genetic algorithm such as mutate the matrix. (Matrix LIBRARY IS NOT USED ANYMORE)
 
 <b>Functions</b> : This code has general functions functions to make the simulation work (create agents, display them, simulate them) it needs to be refactored, it's not organized. In addition this code has silent_simulation function that run the simulation without any drawing (faster but no visualization).
