@@ -3,7 +3,7 @@ This is an implementation that works in the Pythonista environnement on IPAD. In
 
 This is a simulation wrote from scratch (only using a drawing library from Pythonista called Scene), the game is a similar game to agar.io where agent are moving in 2D to eat food in order to grow. The goal is to create a neuroevolution algorithm in order for each agent to have a brain that will improve at each iteration.
 
-This code was written as learning project in end of highschool / 1 st year of undergraduate school. Some of the implementations are terribly slow, some of them are not using python tools properly, please forgive me for that. 
+This code was written as learning project in end of highschool / 1 st year of undergraduate school. Some of the implementations are terribly slow because it's written fully with python loops.
 
 [![IMG-1002.png](https://i.postimg.cc/Kcr5rhTT/IMG-1002.png)](https://postimg.cc/rzsWMbQy)
 
