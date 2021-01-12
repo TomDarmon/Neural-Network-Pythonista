@@ -1,5 +1,5 @@
 # Neural-Network-Pythonista and NeuroEvolution game
-This is a toy neural implementation that works in the Pythonista environnement on IPAD. In addition a neuroevolution project was created on top of the toy NeuralNetwork library.
+This is an implementation that works in the Pythonista environnement on IPAD. In addition a neuroevolution project was created on top of the toy NeuralNetwork library.
 
 This is a simulation wrote from scratch (only using a drawing library from Pythonista called Scene), the game is a similar game to agar.io where agent are moving in 2D to eat food in order to grow. The goal is to create a neuroevolution algorithm in order for each agent to have a brain that will improve at each iteration.
 
