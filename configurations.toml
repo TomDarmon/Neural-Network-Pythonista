@@ -1,2 +1,5 @@
 [config]
 model="gpt-3.5-turbo-16k"
+
+[pr_reviewer] # /review #
+require_focused_review=true
