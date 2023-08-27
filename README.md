@@ -1,25 +1,28 @@
-# Neural-Network-Pythonista and NeuroEvolution game
-This is an implementation that works in the Pythonista environnement on IPAD. In addition a neuroevolution project was created on top of the toy NeuralNetwork library.
+# Neural-Network-Pythonista and NeuroEvolution Game
 
-This is a simulation wrote from scratch (only using a drawing library from Pythonista called Scene), the game is a similar game to agar.io where agent are moving in 2D to eat food in order to grow. The goal is to create a neuroevolution algorithm in order for each agent to have a brain that will improve at each iteration.
+This project is an implementation that works in the Pythonista environment on iPad. It includes a neuroevolution project built on top of a toy NeuralNetwork library.
 
-This code was written as learning project in end of highschool / 1 st year of undergraduate school. Some of the implementations are terribly slow because it's written fully with python loops.
+The simulation is written from scratch, utilizing a drawing library called Scene from Pythonista. The game is similar to agar.io, where agents move in a 2D space to eat food and grow. The goal is to create a neuroevolution algorithm in order for each agent to have a brain that improves at each iteration.
 
 [![IMG-1002.png](https://i.postimg.cc/Kcr5rhTT/IMG-1002.png)](https://postimg.cc/rzsWMbQy)
 
-<b>matrix</b> : This is a toy library for linear algebra, it's written in Python (really slow). It has only functions to be able to make a neuralnetwork with backpropagation such as multiplication, addition, substraction, dot product, hadamard product and transposition. In addition the library has additional functions used to implement a genetic algorithm such as mutate the matrix. (Matrix LIBRARY IS NOT USED ANYMORE)
+## Matrix
+This is a toy library for linear algebra, written in Python (which is slow). It provides functions for creating a neural network with backpropagation, such as multiplication, addition, subtraction, dot product, Hadamard product, and transposition. Additionally, the library includes functions used for implementing a genetic algorithm, such as matrix mutation. (Matrix library is not used anymore)
 
-<b>Functions</b> : This code has general functions functions to make the simulation work (create agents, display them, simulate them) it needs to be refactored, it's not organized. In addition this code has silent_simulation function that run the simulation without any drawing (faster but no visualization).
+## Functions
+This code contains general functions to make the simulation work, such as creating agents, displaying them, and simulating their behavior. However, it needs to be refactored as it is currently not well-organized. Additionally, there is a `silent_simulation` function that runs the simulation without any drawing, making it faster but without visualization.
 
-<b>Class</b> : This is an implementation of all the class of object used in the small game (agents, food, additional classes that were not implemented properly).
+## Class
+This section includes the implementation of all the classes of objects used in the game, such as agents, food, and other additional classes that were not properly implemented.
 
-<b>array_functions</b> : Some functions needed to be executed outside the Matrix object, mutate for example. Other functions were just bad design from myself and should have been implemented in the matrix class.
+## array_functions
+Some functions needed to be executed outside the Matrix object, such as mutation. Other functions were poorly designed and should have been implemented within the matrix class.
 
-<b>NeuralNetwork</b> : This is a simple NN with onyl 1 hidden layer, with a backpropagation implementation in the train method. Overall it passed the test of the XOR problem so it can solve non linear problems. The first implementation was done using the Matrix library, then when it worked I refactored it with numpy so it can run faster. Still this is a toy implementation as the training is done in a python loop. (Matrix LIBRARY IS NOT USED ANYMORE)
+## NeuralNetwork
+This is a simple neural network with only one hidden layer. It includes a backpropagation implementation in the `train` method. The network has passed the XOR problem test, demonstrating its ability to solve non-linear problems. The initial implementation used the Matrix library, but it was later refactored with numpy for improved performance. However, the training is still done in a Python loop. (Matrix library is not used anymore)
 
-<b>Simulation_main</b> : This code is where the magic happens ! The game is runned with different agents each with a fitness function (starting at 0). Each time an agent eats food the fitness increases, more fitness => more chances of getting selected for next generation. The agents all start at the bottom left corner in order to learn to move diagonally before gaining fitness (if they strated at the center randomly then eating food would be luck).
- 
- 
-<b>settings</b> : This is the parameter file of the simulation with the number of food, of agents, etc... The project was runned on Ipad (as the Scene library is only in pythonista), therefore the computing power is small and the simulation can only run properly (graphically) with less than 30 agents. 
+## Simulation_main
+This code is where the magic happens! The game is run with different agents, each having a fitness function that starts at 0. Each time an agent eats food, its fitness increases. Higher fitness increases the chances of being selected for the next generation. The agents all start at the bottom left corner to learn to move diagonally before gaining fitness. If they started randomly at the center, eating food would be based on luck.
 
-
+## settings
+This file contains the parameters for the simulation, such as the number of food items and agents. The project was run on an iPad using Pythonista, which has limited computing power. Therefore, the simulation can only run properly (graphically) with fewer than 30 agents.
