@@ -1,3 +1,53 @@
 [config]
 model="gpt-3.5-turbo"
 fallback_models=["gpt-3.5-turbo"]
+git_provider="github"
+publish_output=true
+publish_output_progress=true
+verbosity_level=0 # 0,1,2
+use_extra_bad_extensions=false
+use_repo_settings_file=true
+ai_timeout=180
+max_description_tokens = 500
+max_commits_tokens = 500
+litellm_debugger=false
+
+[pr_reviewer] # /review #
+require_focused_review=false
+require_score_review=false
+require_tests_review=true
+require_security_review=true
+num_code_suggestions=4
+inline_code_comments = false
+ask_and_reflect=false
+automatic_review=true
+extra_instructions = ""
+
+[pr_description] # /describe #
+publish_description_as_comment=false
+add_original_user_description=false
+keep_original_user_title=false
+extra_instructions = ""
+
+[pr_questions] # /ask #
+
+[pr_code_suggestions] # /improve #
+num_code_suggestions=4
+extra_instructions = ""
+rank_suggestions = false
+# params for '/improve --extended' mode
+num_code_suggestions_per_chunk=8
+rank_extended_suggestions = true
+max_number_of_calls = 5
+final_clip_factor = 0.9
+
+[pr_update_changelog] # /update_changelog #
+push_changelog_changes=false
+extra_instructions = ""
+
+[pr_config] # /config #
+
+[github]
+# The type of deployment to create. Valid values are 'app' or 'user'.
+deployment_type = "app"
+ratelimit_retries = 5
