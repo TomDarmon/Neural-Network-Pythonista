@@ -23,3 +23,4 @@ This code was written as learning project in end of highschool / 1 st year of un
 <b>settings</b> : This is the parameter file of the simulation with the number of food, of agents, etc... The project was runned on Ipad (as the Scene library is only in pythonista), therefore the computing power is small and the simulation can only run properly (graphically) with less than 30 agents. 
 
 
+
